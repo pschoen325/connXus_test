@@ -8,13 +8,14 @@ loadDoc();
 // Gets Clients IP
 function loadDoc() {
     ipRequest = new XMLHttpRequest();
-    ipRequest.open('GET', 'https://api.ipify.org?format=json');
+    ipRequest.open('GET', 'http://ipinfo.io/json');
     ipRequest.onload = function() {
         ipData = JSON.parse(ipRequest.responseText);
         locRequest = new XMLHttpRequest();
         locRequest.open('GET', 'http://ip-api.com/json/' + ipData.ip);
         locRequest.onload = function() {
             locData = JSON.parse(locRequest.responseText);
+            console.log(locData);
             renderClientInfo();
         };
         locRequest.send();
@@ -54,8 +55,6 @@ function runQueryString() {
 
     }
 }
-
-// Event Listeners
 
 document.getElementById('locationSearch').addEventListener("keyup", function(event) {
     event.preventDefault();

@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 
     // IP Address Location API
     var http = require('http');
-    var ipPath ='/ip/'+req.query.ip+'/json';
+    var ipPath = '/ip/' + req.query.ip + '/json';
     var Cords = {};
 
     var options = {
@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
     callback = function(response) {
         var locationResponse = '';
         response.on('data', function(chunk) {
-          // Chunk is a string of data
+            // Chunk is a string of data
             locationResponse += chunk;
             jsonResponse = JSON.parse(locationResponse);
             Cords.lat = jsonResponse.RestResponse.result.latitude;
@@ -36,31 +36,32 @@ router.get('/', function(req, res, next) {
             Cords.city = jsonResponse.RestResponse.result.city;
         });
         response.on('end', function() {
-          var q = req.query.q;
-          var geocodeParams = Cords.lat + "," + Cords.lon + "," + "50mi";
+            var q = req.query.q;
+            var geocodeParams = Cords.lat + "," + Cords.lon + "," + "50mi";
 
-          // Function to GET tweets
-          function getTweets(q, geocode) {
-            T.get('search/tweets', {
-                q: q,
-                result_type: 'recent',
-                geocode: geocode,
-                count: '25'
-            }, function(err, tweets, response) {
-                res.render('index', {
-                    title: 'ConnXus Test',
-                    tweets: tweets.statuses,
+            // Function to GET tweets
+            function getTweets(q, geocode) {
+                T.get('search/tweets', {
+                    q: q,
+                    result_type: 'recent',
+                    geocode: geocode,
+                    count: '25'
+                }, function(err, tweets, response) {
+
+                    res.render('index', {
+                        title: 'ConnXus Test',
+                        tweets: tweets.statuses,
+                    });
                 });
-            });
-          }
-          // How tweets will be display web page
-          if (q === undefined && Cords.lat === undefined) {
-            getTweets('javascript', '39.333087,-84.315180,50mi');
-          } else if ( typeof Cords.lat === "string" || typeof Cords.lon == "string" && q === undefined) {
-            getTweets('#', geocodeParams);
-          } else {
-            getTweets(q, geocodeParams);
-          }
+            }
+            // How tweets will be display web page
+            if (q === undefined && Cords.lat === undefined) {
+                getTweets('javascript', '39.333087,-84.315180,50mi');
+            } else if (typeof Cords.lat === "string" || typeof Cords.lon == "string" && q === undefined) {
+                getTweets('#', geocodeParams);
+            } else {
+                getTweets(q, geocodeParams);
+            }
         });
     };
     http.request(options, callback).end();
