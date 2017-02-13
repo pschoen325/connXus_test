@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <div class="text-center">
+                    <h1>Search For Nearby Tweets</h1>
+                    <p>Search for Tweets</p>
+                    <form class="form-inline" action="index.html" method="post">
+                        <div class="form-group">
+                            <input id="searchTerm" class="form-control" type="text" name="" value="" placeholder="Search Term">
+                            <input id="locationSearch" class="form-control" type="text" name="" value="" placeholder="IP Address">
+                            <button id="locBtn" class="btn btn-default" type="button" name="button">Search</button>
+                        </div>
+                    </form>
+                    <div id="clientLatAndLon"></div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                <h1 class="text-center">Tweets</h1>
+                </h3>
+                <% tweets.forEach(function(tweet) { %>
+                    <div class="tweet text-center">
+                      <blockquote class="twitter-tweet" data-lang="en">
+                        <h4 class="text-left">@<%= tweet.user.screen_name %> tweeted:</h1>
+                        <p class="text-left"><%= tweet.text %></p>
+                      </blockquote>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="javascripts/main.js"></script>
+
+</html>
