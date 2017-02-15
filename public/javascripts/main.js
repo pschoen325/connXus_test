@@ -5,7 +5,7 @@ var myUrl = window.location.href;
 
 loadDoc();
 
-// Gets Clients IP
+// Gets Clients IP with AJAX
 function loadDoc() {
     ipRequest = new XMLHttpRequest();
     ipRequest.open('GET', 'http://ipinfo.io/json');
@@ -25,11 +25,7 @@ function loadDoc() {
 
 // Puts Clients IP Address on Webpage
 function renderClientInfo() {
-    if (userInput === "") {
-        document.getElementById('clientLatAndLon').innerHTML = '<li>Your IP Address: ' + ipData.ip + '</li>';
-    } else {
-        document.getElementById('clientLatAndLon').innerHTML = '<li>Your IP Address: ' + userInput + '</li>';
-    }
+    document.getElementById('clientLatAndLon').innerHTML = '<li>Your IP Address: ' + ipData.ip + '</li>';
 }
 
 // ValidatesIPAddress with Regex
@@ -59,14 +55,14 @@ function runQueryString() {
 document.getElementById('locationSearch').addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
-      locBtn.click();
+        locBtn.click();
     }
 });
 
 document.getElementById('searchTerm').addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode == 13) {
-      locBtn.click();
+        locBtn.click();
     }
 });
 

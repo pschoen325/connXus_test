@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-// Twitter Keys (I know its bad access to show keys)
+// Twitter Keys (I know its bad practice to show keys)
 var Twit = require('twit');
 var T = new Twit({
     consumer_key: 'ibY8xUPyG7qiLCEqwv8hVtl82',
@@ -15,7 +15,7 @@ var T = new Twit({
 /* GET index page. */
 router.get('/', function(req, res, next) {
 
-    // IP Address Location API
+    // IP Address Location API with HTTPrequest
     var http = require('http');
     var ipPath = '/ip/' + req.query.ip + '/json';
     var Cords = {};
@@ -33,7 +33,6 @@ router.get('/', function(req, res, next) {
             jsonResponse = JSON.parse(locationResponse);
             Cords.lat = jsonResponse.RestResponse.result.latitude;
             Cords.lon = jsonResponse.RestResponse.result.longitude;
-            Cords.city = jsonResponse.RestResponse.result.city;
         });
         response.on('end', function() {
             var q = req.query.q;
@@ -54,7 +53,7 @@ router.get('/', function(req, res, next) {
                     });
                 });
             }
-            // How tweets will be display web page
+            // How tweets will be displayed on web page
             if (q === undefined && Cords.lat === undefined) {
                 getTweets('javascript', '39.333087,-84.315180,50mi');
             } else if (typeof Cords.lat === "string" || typeof Cords.lon == "string" && q === undefined) {
