@@ -1,6 +1,6 @@
 var locBtn = document.getElementById("locBtn");
-userInput = document.getElementById('locationSearch').value;
-searchTerm = document.getElementById('searchTerm').value;
+var userInput = document.getElementById('locationSearch').value;
+var searchTerm = document.getElementById('searchTerm').value;
 var myUrl = window.location.href;
 
 loadDoc();
